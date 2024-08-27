@@ -1,0 +1,33 @@
+name: host-manager-publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: SECRET_KEY
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build the Tauri app
+        run: pnpm tauri build
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: tauri-app
+          path: |
+            src-tauri/target/release/bundle/**/*
