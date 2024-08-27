@@ -8,7 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: SECRET_KEY
 
     steps:
       - name: Checkout code
@@ -18,6 +17,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16"
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
         run: pnpm install
