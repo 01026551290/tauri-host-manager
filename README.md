@@ -1,7 +1,79 @@
-# Tauri + React + Typescript
+# Tauri Host Manager
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+Tauri Host Manager는 여러 네트워크 환경(예: 개발, 스테이징, 운영)을 관리하기 위해 여러 hosts 파일을 쉽게 관리할 수 있는 애플리케이션입니다. 이 문서는 설치 방법과 주요 기능에 대해 안내합니다.
 
-## Recommended IDE Setup
+## 📥 설치 가이드
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+### 1. 파일 다운로드 및 압축 해제
+
+1. 제공된 `.dmg` 파일을 다운로드합니다.
+2. 다운로드한 `.dmg` 파일의 압축을 해제한 후, 해당 폴더로 이동합니다.
+
+### 2. 애플리케이션 설치
+
+1. `.dmg` 폴더 내 설치 파일을 더블 클릭합니다.
+2. 애플리케이션을 **Applications** 폴더로 드래그하여 이동합니다.
+
+### 3. 보안 설정 해제
+
+MacOS에서 애플리케이션이 “손상된 파일”로 인식될 수 있습니다. 이를 방지하려면 터미널을 열고 아래 명령어를 입력하여 보안 설정을 해제하세요:
+
+`sudo xattr -rd com.apple.quarantine /Applications/tauri-host-manager.app`
+명령어 실행 후, 관리자 비밀번호를 입력합니다.
+
+# Tauri Host Manager
+
+Tauri Host Manager는 다양한 네트워크 환경 설정을 손쉽게 관리할 수 있도록 도와주는 도구입니다. 여러 hosts 파일을 추가, 저장, 적용 및 제거할 수 있어 특정 개발 환경에 맞게 네트워크 설정을 유연하게 관리할 수 있습니다.
+
+## 🛠 주요 기능
+
+### Current (현재 상태)
+
+- 사용자의 현재 hosts 파일 정보를 확인할 수 있습니다. 이는 시스템이 사용하는 기본 hosts 파일을 나타내며, 네트워크 환경 설정을 파악할 수 있습니다.
+
+### 호스트 파일 추가
+
+- 상단의 **추가** 버튼을 클릭하여 새로운 호스트 파일을 추가할 수 있습니다. 추가된 파일은 좌측 리스트에 나타나며, 여러 호스트 파일을 필요에 따라 관리할 수 있습니다.
+
+### 호스트 파일 적용
+
+- 리스트에서 특정 호스트 파일을 선택하고 **적용** 버튼을 클릭하면 해당 호스트 파일이 시스템의 hosts 파일로 설정됩니다. 이 변경 사항은 즉시 네트워크 설정에 반영됩니다.
+
+### 호스트 파일 저장
+
+- 편집한 호스트 파일은 **저장** 버튼을 클릭하여 현재 상태로 저장할 수 있습니다. 저장 시, 필수 항목 (127.0.0.1 localhost, 255.255.255.255 broadcasthost, ::1 localhost)이 누락된 경우 자동으로 추가됩니다.
+
+### 호스트 파일 제거
+
+- 필요하지 않은 호스트 파일은 **제거** 버튼을 사용하여 삭제할 수 있습니다. 현재 적용 중인 파일은 삭제할 수 없으며, 다른 파일로 변경 후 삭제할 수 있습니다.
+
+## 📝 사용 예시
+
+Tauri Host Manager를 사용하면 다양한 네트워크 설정에 맞게 여러 hosts 파일을 관리할 수 있습니다. 예를 들어, 특정 개발 환경에 맞는 hosts 설정이 필요할 때 해당 파일을 선택하고 **적용** 버튼을 클릭하면 해당 설정이 즉시 시스템에 반영되어 원하는 네트워크 환경에서 작업할 수 있습니다.
+
+## ⚠️ 주의 사항 및 팁
+
+- **애플리케이션 보안**: MacOS 보안 설정으로 인해 처음 설치 시 “손상된 파일” 경고가 나타날 수 있습니다. 이를 방지하려면 위의 터미널 명령어를 사용해 보안 설정을 해제하세요.
+- **호스트 파일 형식**: hosts 파일을 편집할 때는 기본 형식을 유지하는 것이 중요합니다. 잘못된 형식으로 저장할 경우 네트워크 문제가 발생할 수 있습니다.
+- **백업 권장**: 중요한 네트워크 설정을 편집할 때는 항상 현재 hosts 파일을 백업해 두는 것이 좋습니다.
+
+## 🔄 Tauri와 다른 크로스플랫폼 프레임워크 비교
+
+### Tauri vs. Electron
+
+- **성능**: Tauri 앱은 일반적으로 Electron 앱보다 크기가 작습니다. 이는 Electron이 자체 웹 렌더러를 포함하는 반면, Tauri는 시스템에 내장된 웹 렌더러를 활용하기 때문입니다.
+- **보안**: Tauri는 메모리 안전성이 높은 Rust 언어를 사용하여 보안성이 향상되었습니다.
+- **자원 사용량**: Tauri는 Electron보다 메모리와 CPU 사용량이 더 효율적입니다.
+
+### Tauri vs. Wails
+
+- **플랫폼 지원**: Tauri와 Wails 모두 크로스 플랫폼 개발을 지원하지만, Wails는 Go를 백엔드로 사용하는 반면 Tauri는 Rust를 사용합니다.
+- **커뮤니티 및 생태계**: Tauri는 빠르게 성장하는 커뮤니티와 더 광범위한 문서를 보유하고 있으며, Wails는 Go 개발자들 사이에서 인기를 끌고 있습니다.
+
+## 📜 라이선스
+
+이 프로젝트는 [MIT License](./LICENSE)를 따릅니다.
+
+---
+
+이 README 파일은 GitHub 리포지토리의 README.md 파일로 사용하기에 적합하며, 사용자들에게 앱의 설치 및 사용 방법을 명확하게 전달할 수 있습니다.
